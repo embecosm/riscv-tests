@@ -1,0 +1,18 @@
+load_lib dg.exp
+
+dg-init
+foreach src [lsort [glob -nocomplain $srcdir/$subdir/*]] {
+    if ![file executable $src] then {
+	continue
+    }
+
+    regsub "(?q)$srcdir/" $src "" testcase
+    if [string match "/*" $testcase] {
+	set testcase "[file tail [file dirname $src]]/[file tail $src]"
+    }
+    set result [remote_load target $src ""]
+    set status [lindex $result 0]
+    set output [lindex $result 1]
+    $status "$testcase"
+}
+dg-finish

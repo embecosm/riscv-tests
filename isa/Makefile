@@ -95,10 +95,13 @@ run: $(tests_out) $(tests32_out)
 
 junk += $(tests) $(tests_dump) $(tests_hex) $(tests_out) $(tests32_out)
 
+isa.exp:
+	install -m644 $(src_dir)/isa.exp isa.exp
+
 #------------------------------------------------------------
 # Default
 
-all: $(tests_dump)
+all: $(tests_dump) isa.exp
 
 #------------------------------------------------------------
 # Clean up
